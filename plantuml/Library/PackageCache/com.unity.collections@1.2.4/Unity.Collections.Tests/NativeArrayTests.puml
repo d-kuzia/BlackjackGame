@@ -1,0 +1,16 @@
+@startuml
+class NativeArrayTests {
+    + <<unsafe>> NativeArray_IndexOf_Int() : void
+    + <<unsafe>> NativeArray_IndexOf_FixedString128() : void
+    + NativeArray_DisposeJob() : void
+    + NativeArray_DisposeJobWithMissingDependencyThrows() : void
+    + NativeArray_DisposeJobCantBeScheduled() : void
+}
+struct NativeArrayPokeJob {
+    + NativeArrayPokeJob(array:NativeArray<int>)
+    + Execute() : void
+}
+CollectionsTestFixture <|-- NativeArrayTests
+NativeArrayTests +-- NativeArrayPokeJob
+IJob <|-- NativeArrayPokeJob
+@enduml

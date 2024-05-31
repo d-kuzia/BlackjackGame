@@ -1,0 +1,10 @@
+@startuml
+class CardScript {
+    + value : int = 0
+    + GetValueOfCard() : int
+    + SetValue(newValue:int) : void
+    + SetSprite(newSprite:Sprite) : void
+    + ResetCard() : void
+}
+MonoBehaviour <|-- CardScript
+@enduml

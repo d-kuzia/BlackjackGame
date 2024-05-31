@@ -1,0 +1,28 @@
+@startuml
+interface ISpriteLibraryEditorWindow {
+}
+class SpriteLibraryEditorWindow {
+    + <<const>> tabHeaderName : string = "EditorTabHeader"
+    + <<const>> editorWindowClassName : string = "sprite-library-editor-window"
+    + <<const>> overrideClassName : string
+    + <<const>> infoLabelClassName : string
+    + <<const>> deleteCommandName : string = "Delete"
+    + <<const>> renameCommandName : string = "Rename"
+    + {static} OpenWindow() : SpriteLibraryEditorWindow
+    + <<override>> SaveChanges() : void
+    + <<override>> DiscardChanges() : void
+    + HandleUnsavedChanges() : void
+    + HandleRevertChanges() : void
+    + {static} HandleUnsavedChangesOnApply() : void
+    + {static} TriggerAssetModifiedOnApply() : void
+}
+class Settings <<static>> {
+    + {static} splitPaneSize : float <<get>> <<set>>
+    + {static} autoSave : bool <<get>> <<set>>
+    + {static} viewSize : float <<get>> <<set>>
+}
+EditorWindow <|-- SpriteLibraryEditorWindow
+ISpriteLibraryEditorWindow <|-- SpriteLibraryEditorWindow
+SpriteLibraryEditorWindow +-- Settings
+Settings --> "viewType" ViewType
+@enduml

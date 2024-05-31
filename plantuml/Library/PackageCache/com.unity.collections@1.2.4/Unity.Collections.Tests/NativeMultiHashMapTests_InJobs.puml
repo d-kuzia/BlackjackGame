@@ -1,0 +1,14 @@
+@startuml
+class NativeMultiHashMapTests_InJobs {
+    + NativeMultiHashMap_Read_And_Write() : void
+    + NativeMultiHashMap_Read_And_Write_Full() : void
+    + NativeMultiHashMap_Key_Collisions() : void
+    + NativeMultiHashMap_TryMultiAddScalabilityConcurrent() : void
+}
+struct AddMultiIndex {
+    + Execute(index:int) : void
+}
+NativeMultiHashMapTestsFixture <|-- NativeMultiHashMapTests_InJobs
+NativeMultiHashMapTests_InJobs +-- AddMultiIndex
+IJobParallelFor <|-- AddMultiIndex
+@enduml

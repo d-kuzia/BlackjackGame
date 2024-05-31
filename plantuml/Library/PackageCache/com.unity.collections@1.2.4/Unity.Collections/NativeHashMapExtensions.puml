@@ -1,0 +1,11 @@
+@startuml
+class NativeHashMapExtensions <<static>> {
+    + {static} Unique(array:NativeArray<T>) : int
+    + {static} GetUniqueKeyArray(container:UnsafeMultiHashMap<TKey, TValue>, allocator:AllocatorManager.AllocatorHandle) : (NativeArray<TKey>, int)
+    + {static} GetUniqueKeyArray(container:NativeMultiHashMap<TKey, TValue>, allocator:AllocatorManager.AllocatorHandle) : (NativeArray<TKey>, int)
+    + {static} <<unsafe>> GetBucketData(container:NativeHashMap<TKey, TValue>) : UnsafeHashMapBucketData
+    + {static} <<unsafe>> GetUnsafeBucketData(container:NativeHashMap<TKey, TValue>) : UnsafeHashMapBucketData
+    + {static} <<unsafe>> GetUnsafeBucketData(container:NativeMultiHashMap<TKey, TValue>) : UnsafeHashMapBucketData
+    + {static} Remove(container:NativeMultiHashMap<TKey, TValue>, key:TKey, value:TValue) : void
+}
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+struct PSDApplyEvent {
+    + instance_id : int
+    + texture_type : int
+    + sprite_mode : int
+    + mosaic_layer : bool
+    + import_hidden_layer : bool
+    + character_mode : bool
+    + generate_go_hierarchy : bool
+    + reslice_from_layer : bool
+    + is_character_rigged : bool
+    + is_psd : bool
+}
+interface IAnalytics {
+}
+class AnalyticFactory <<static>> {
+}
+class Analytics {
+    + SendApplyEvent(evt:PSDApplyEvent) : AnalyticsResult
+}
+PSDApplyEvent --> "character_alignment" SpriteAlignment
+PSDApplyEvent --> "color_mode" PsdColorMode
+AnalyticFactory --> "analytics" IAnalytics
+IAnalytics <|-- Analytics
+@enduml

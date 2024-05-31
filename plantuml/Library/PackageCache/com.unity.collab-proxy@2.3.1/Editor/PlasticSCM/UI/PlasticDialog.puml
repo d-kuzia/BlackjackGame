@@ -1,0 +1,9 @@
+@startuml
+abstract class PlasticDialog {
+}
+class BuildLine <<static>> {
+}
+EditorWindow <|-- PlasticDialog
+IPlasticDialogCloser <|-- PlasticDialog
+PlasticDialog +-- BuildLine
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+interface ISpriteEditorDataProvider {
+}
+interface ISpriteBoneDataProvider {
+}
+interface ISpriteNameFileIdDataProvider {
+}
+interface ISpriteOutlineDataProvider {
+}
+interface ISpritePhysicsOutlineDataProvider {
+}
+interface ITextureDataProvider {
+}
+interface ISecondaryTextureDataProvider {
+}
+struct Vertex2DMetaData {
+}
+interface ISpriteMeshDataProvider {
+}
+Vertex2DMetaData --> "position" Vector2
+Vertex2DMetaData --> "boneWeight" BoneWeight
+@enduml

@@ -1,0 +1,163 @@
+@startuml
+struct UnsafeList {
+    + Length : int
+    + <<readonly>> unused : int
+    + Capacity : int
+    + UnsafeList(allocator:Allocator)
+    + UnsafeList(ptr:void*, length:int)
+    + UnsafeList(sizeOf:int, alignOf:int, initialCapacity:int, allocator:AllocatorManager.AllocatorHandle, options:NativeArrayOptions)
+    + UnsafeList(sizeOf:int, alignOf:int, initialCapacity:int, allocator:Allocator, options:NativeArrayOptions)
+    + {static} Create(sizeOf:int, alignOf:int, initialCapacity:int, allocator:Allocator, options:NativeArrayOptions) : UnsafeList*
+    + {static} Destroy(listData:UnsafeList*) : void
+    + IsEmpty : bool <<get>>
+    + IsCreated : bool <<get>>
+    + Dispose() : void
+    + Dispose(inputDeps:JobHandle) : JobHandle
+    + Clear() : void
+    + Resize(sizeOf:int, alignOf:int, length:int, options:NativeArrayOptions) : void
+    + Resize(length:int, options:NativeArrayOptions) : void
+    + SetCapacity(capacity:int) : void
+    + TrimExcess() : void
+    + IndexOf(value:T) : int
+    + Contains(value:T) : bool
+    + AddNoResize(value:T) : void
+    + AddRangeNoResize(ptr:void*, length:int) : void
+    + AddRangeNoResize(list:UnsafeList) : void
+    + Add(value:T) : void
+    + AddRange(ptr:void*, length:int) : void
+    + AddRange(list:UnsafeList) : void
+    + InsertRangeWithBeginEnd(begin:int, end:int) : void
+    + RemoveAtSwapBack(index:int) : void
+    + RemoveRangeSwapBackWithBeginEnd(begin:int, end:int) : void
+    + RemoveAt(index:int) : void
+    + RemoveRangeWithBeginEnd(begin:int, end:int) : void
+    + AsParallelReader() : ParallelReader
+    + AsParallelWriter() : ParallelWriter
+}
+class UnsafeListExtension <<static>> {
+    + <<unsafe>> {static} Sort(list:UnsafeList) : void
+    + <<unsafe>> {static} Sort(list:UnsafeList, comp:U) : void
+    + <<unsafe>> {static} Sort(container:UnsafeList, inputDeps:JobHandle) : JobHandle
+    + <<unsafe>> {static} SortJob(list:UnsafeList) : SortJob<T, NativeSortExtension.DefaultComparer<T>>
+    + <<unsafe>> {static} Sort(container:UnsafeList, comp:U, inputDeps:JobHandle) : JobHandle
+    + <<unsafe>> {static} SortJob(list:UnsafeList, comp:U) : SortJob<T, U>
+    + {static} BinarySearch(container:UnsafeList, value:T) : int
+    + <<unsafe>> {static} BinarySearch(container:UnsafeList, value:T, comp:U) : int
+}
+struct UnsafePtrList {
+    + <<readonly>> length : int
+    + <<readonly>> unused : int
+    + <<readonly>> capacity : int
+    + Length : int <<get>> <<set>>
+    + Capacity : int <<get>> <<set>>
+    + ElementAt(index:int) : ref IntPtr
+    + <<unsafe>> UnsafePtrList(ptr:void**, length:int)
+    + <<unsafe>> UnsafePtrList(initialCapacity:int, allocator:AllocatorManager.AllocatorHandle, options:NativeArrayOptions)
+    + <<unsafe>> UnsafePtrList(initialCapacity:int, allocator:Allocator, options:NativeArrayOptions)
+    + {static} Create(ptr:void**, length:int) : UnsafePtrList*
+    + {static} Create(initialCapacity:int, allocator:Allocator, options:NativeArrayOptions) : UnsafePtrList*
+    + {static} Destroy(listData:UnsafePtrList*) : void
+    + IsEmpty : bool <<get>>
+    + IsCreated : bool <<get>>
+    + Dispose() : void
+    + Dispose(inputDeps:JobHandle) : JobHandle
+    + Clear() : void
+    + Resize(length:int, options:NativeArrayOptions) : void
+    + SetCapacity(capacity:int) : void
+    + TrimExcess() : void
+    + IndexOf(value:void*) : int
+    + Contains(value:void*) : bool
+    + AddNoResize(value:void*) : void
+    + AddRangeNoResize(ptr:void**, length:int) : void
+    + AddRangeNoResize(list:UnsafePtrList) : void
+    + Add(value:IntPtr) : void
+    + Add(value:void*) : void
+    + AddRange(ptr:void*, length:int) : void
+    + AddRange(list:UnsafePtrList) : void
+    + InsertRangeWithBeginEnd(begin:int, end:int) : void
+    + RemoveAtSwapBack(index:int) : void
+    + RemoveRangeSwapBackWithBeginEnd(begin:int, end:int) : void
+    + RemoveAt(index:int) : void
+    + RemoveRangeWithBeginEnd(begin:int, end:int) : void
+    + AsParallelReader() : ParallelReader
+    + AsParallelWriter() : ParallelWriter
+}
+class UnsafePtrListExtensions <<static>> {
+    + {static} ListData(from:UnsafePtrList) : ref UnsafeList
+}
+class UnsafePtrListDebugView <<sealed>> {
+    + UnsafePtrListDebugView(data:UnsafePtrList)
+}
+class WordStorageDebugView <<sealed>> {
+    + WordStorageDebugView(wordStorage:WordStorage)
+}
+class WordStorageStatic <<sealed>> {
+}
+struct WordStorage {
+    + <<const>> kMaxCharsPerEntry : int = 4096
+    + Entries : int <<get>>
+    + {static} Initialize() : void
+    + {static} Shutdown() : void
+    + {static} Clear() : void
+    + {static} Setup() : void
+    + <<unsafe>> GetFixedString(index:int, temp:T) : void
+    + GetIndexFromHashAndFixedString(h:int, temp:T) : int
+    + Contains(value:T) : bool
+    + <<unsafe>> Contains(value:string) : bool
+    + GetOrCreateIndex(value:T) : int
+}
+struct Words {
+    + ToFixedString(value:T) : void
+    + <<override>> ToString() : string
+    + SetFixedString(value:T) : void
+    + <<unsafe>> SetString(value:string) : void
+}
+struct NumberedWords {
+    + ToFixedString(result:T) : int
+    + <<override>> ToString() : string
+    + SetString(value:T) : void
+    + SetString(value:string) : void
+}
+struct ParallelReader {
+    + <<readonly>> Length : int
+    + IndexOf(value:T) : int
+    + Contains(value:T) : bool
+}
+struct ParallelWriter {
+    + AddNoResize(value:T) : void
+    + AddRangeNoResize(ptr:void*, length:int) : void
+    + AddRangeNoResize(list:UnsafeList) : void
+}
+class "INativeList`1"<T> {
+}
+class "IEnumerable`1"<T> {
+}
+struct ParallelReader {
+    + <<readonly>> Length : int
+    + IndexOf(value:void*) : int
+    + Contains(value:void*) : bool
+}
+struct ParallelWriter {
+    + AddNoResize(value:void*) : void
+    + AddRangeNoResize(ptr:void**, length:int) : void
+    + AddRangeNoResize(list:UnsafePtrList) : void
+}
+struct Thing {
+}
+struct Entry {
+    + offset : int
+    + length : int
+}
+INativeDisposable <|-- UnsafeList
+INativeDisposable <|-- UnsafePtrList
+"INativeList`1" "<IntPtr>" <|-- UnsafePtrList
+"IEnumerable`1" "<IntPtr>" <|-- UnsafePtrList
+WordStorageStatic o-> "Ref" Thing
+UnsafeList +-- ParallelReader
+UnsafeList +-- ParallelWriter
+UnsafePtrList +-- ParallelReader
+UnsafePtrList +-- ParallelWriter
+WordStorageStatic +-- Thing
+Thing --> "Data" WordStorage
+WordStorage +-- Entry
+@enduml

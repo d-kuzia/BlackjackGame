@@ -1,0 +1,9 @@
+@startuml
+class Extensions <<static>> {
+    + {static} ToArray(set:NativeHashSet<T>) : T[]
+    + {static} ToArrayNBC(list:NativeList<T>) : T[]
+    + {static} CopyFromNBC(list:NativeList<T>, array:T[]) : void
+    + {static} GetUniqueKeyArrayNBC(hashmap:UnsafeMultiHashMap<TKey, TValue>, allocator:AllocatorManager.AllocatorHandle) : (NativeArray<TKey>, int)
+    + {static} GetUniqueKeyArrayNBC(hashmap:NativeMultiHashMap<TKey, TValue>, allocator:AllocatorManager.AllocatorHandle) : (NativeArray<TKey>, int)
+}
+@enduml

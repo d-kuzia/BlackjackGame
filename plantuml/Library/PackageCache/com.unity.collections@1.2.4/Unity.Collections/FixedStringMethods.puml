@@ -1,0 +1,23 @@
+@startuml
+class FixedStringMethods <<unsafe>> <<static>> <<partial>> {
+    + {static} IndexOf(fs:T, bytes:byte*, bytesLen:int) : int
+    + {static} IndexOf(fs:T, bytes:byte*, bytesLen:int, startIndex:int, distance:int) : int
+    + {static} IndexOf(fs:T, other:T2) : int
+    + {static} IndexOf(fs:T, other:T2, startIndex:int, distance:int) : int
+    + {static} Contains(fs:T, other:T2) : bool
+    + {static} LastIndexOf(fs:T, bytes:byte*, bytesLen:int) : int
+    + {static} LastIndexOf(fs:T, bytes:byte*, bytesLen:int, startIndex:int, distance:int) : int
+    + {static} LastIndexOf(fs:T, other:T2) : int
+    + {static} LastIndexOf(fs:T, other:T2, startIndex:int, distance:int) : int
+    + {static} CompareTo(fs:T, bytes:byte*, bytesLen:int) : int
+    + {static} CompareTo(fs:T, other:T2) : int
+    + {static} Equals(fs:T, bytes:byte*, bytesLen:int) : bool
+    + {static} Equals(fs:T, other:T2) : bool
+    + {static} Peek(fs:T, index:int) : Unicode.Rune
+    + {static} Read(fs:T, index:int) : Unicode.Rune
+    + {static} Write(fs:T, index:int, rune:Unicode.Rune) : FormatError
+    + {static} ConvertToString(fs:T) : String
+    + {static} ComputeHashCode(fs:T) : int
+    + {static} EffectiveSizeOf(fs:T) : int
+}
+@enduml

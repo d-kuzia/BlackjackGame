@@ -1,0 +1,11 @@
+@startuml
+class GameObjectCreation <<static>> {
+}
+class Styles <<static>> {
+    + {static} <<readonly>> pointTopHexagonCreateUndo : string
+    + {static} <<readonly>> flatTopHexagonCreateUndo : string
+    + {static} <<readonly>> isometricCreateUndo : string
+    + {static} <<readonly>> isometricZAsYCreateUndo : string
+}
+GameObjectCreation +-- Styles
+@enduml

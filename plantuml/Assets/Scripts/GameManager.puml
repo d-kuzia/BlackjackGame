@@ -1,0 +1,28 @@
+@startuml
+class GameManager {
+}
+MonoBehaviour <|-- GameManager
+GameManager --> "dealButton" Button
+GameManager --> "hitButton" Button
+GameManager --> "standButton" Button
+GameManager --> "betButton" Button
+GameManager --> "allInButton" Button
+GameManager --> "doubleButton" Button
+GameManager --> "playerScript" PlayerScript
+GameManager --> "dealerScript" PlayerScript
+GameManager --> "gtoScript" PlayerScript
+GameManager --> "scoreText" Text
+GameManager --> "dealerScoreText" Text
+GameManager --> "betsText" Text
+GameManager --> "botBetsText" Text
+GameManager --> "cashText" Text
+GameManager --> "botCashText" Text
+GameManager --> "mainText" Text
+GameManager --> "botMainText" Text
+GameManager --> "botScoreText" Text
+GameManager --> "hideCard" GameObject
+GameManager --> "rulesCanvas" GameObject
+GameManager --> "cardHitSound" AudioSource
+GameManager --> "betSound" AudioSource
+GameManager --> "musicVolumeSlider" Slider
+@enduml

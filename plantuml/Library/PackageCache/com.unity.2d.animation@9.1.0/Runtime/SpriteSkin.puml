@@ -1,0 +1,35 @@
+@startuml
+struct PositionVertex {
+}
+struct PositionTangentVertex {
+}
+class SpriteSkin <<sealed>> {
+    + autoRebind : bool <<get>> <<set>>
+    + alwaysUpdate : bool <<get>> <<set>>
+    + OnBeforeSerialize() : void
+    + OnAfterDeserialize() : void
+    + HasCurrentDeformedVertices() : bool
+    + GetDeformedVertexPositionData() : IEnumerable<Vector3>
+    + GetDeformedVertexTangentData() : IEnumerable<Vector4>
+    + OnPreviewUpdate() : void
+}
+class Profiling <<static>> {
+}
+struct TransformData {
+    + fullName : string
+}
+PositionVertex --> "position" Vector3
+PositionTangentVertex --> "position" Vector3
+PositionTangentVertex --> "tangent" Vector4
+MonoBehaviour <|-- SpriteSkin
+IPreviewable <|-- SpriteSkin
+ISerializationCallbackReceiver <|-- SpriteSkin
+SpriteSkin --> "rootBone" Transform
+SpriteSkin +-- Profiling
+Profiling o-> "cacheCurrentSprite" ProfilerMarker
+Profiling o-> "cacheHierarchy" ProfilerMarker
+Profiling o-> "getSpriteBonesTransformFromGuid" ProfilerMarker
+Profiling o-> "getSpriteBonesTransformFromPath" ProfilerMarker
+SpriteSkin +-- TransformData
+TransformData --> "transform" Transform
+@enduml

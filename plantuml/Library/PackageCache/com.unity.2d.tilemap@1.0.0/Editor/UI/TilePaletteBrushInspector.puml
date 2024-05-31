@@ -1,0 +1,11 @@
+@startuml
+class TilePaletteBrushInspector {
+    + OnGUI() : void
+}
+class Styles <<static>> {
+}
+TilePaletteBrushInspector +-- Styles
+Styles o-> "lockZPosition" GUIContent
+Styles o-> "zPosition" GUIContent
+Styles o-> "resetZPosition" GUIContent
+@enduml

@@ -1,0 +1,58 @@
+@startuml
+class NativeMultiHashMapTests {
+    + NativeMultiHashMap_UseAfterFree_UsesCustomOwnerTypeName() : void
+    + NativeMultiHashMap_CreateAndUseAfterFreeInBurstJob_UsesCustomOwnerTypeName() : void
+    + NativeMultiHashMap_IsEmpty() : void
+    + NativeMultiHashMap_CountValuesForKey() : void
+    + NativeMultiHashMap_RemoveKeyAndValue() : void
+    + NativeMultiHashMap_ValueIterator() : void
+    + NativeMultiHashMap_RemoveKeyValueDoesntDeallocate() : void
+    + NativeMultiHashMap_Double_Deallocate_Throws() : void
+    + NativeMultiHashMap_RemoveOnEmptyMap_DoesNotThrow() : void
+    + NativeMultiHashMap_RemoveFromMultiHashMap() : void
+    + NativeMultiHashMap_GetKeys() : void
+    + NativeMultiHashMap_GetUniqueKeysEmpty() : void
+    + NativeMultiHashMap_GetUniqueKeys() : void
+    + NativeMultiHashMap_GetValues() : void
+    + NativeMultiHashMap_ForEach_FixedStringInHashMap() : void
+    + NativeMultiHashMap_ForEach(n:int) : void
+    + NativeMultiHashMap_ForEach_From_Job(n:int) : void
+    + NativeMultiHashMap_ForEach_Throws_When_Modified() : void
+    + NativeMultiHashMap_ForEach_Throws_Job_Iterator() : void
+    + NativeMultiHashMap_ForEach_Throws_When_Modified_From_Job() : void
+    + NativeMultiHashMap_GetKeysAndValues() : void
+    + NativeMultiHashMap_ContainsKeyMultiHashMap() : void
+    + NativeMultiHashMap_CustomAllocatorTest() : void
+    + <<unsafe>> NativeMultiHashMap_BurstedCustomAllocatorTest() : void
+}
+struct NativeMultiHashMap_CreateAndUseAfterFreeBurst {
+    + Execute() : void
+}
+struct NativeMultiHashMap_ForEach_Job {
+    + Num : int
+    + Execute() : void
+}
+struct NativeMultiHashMap_ForEachIterator {
+    + Execute() : void
+}
+struct ParallelWriteToMultiHashMapJob {
+    + Execute(index:int) : void
+}
+struct BurstedCustomAllocatorJob {
+    + Execute() : void
+}
+class "NativeMultiHashMap`2"<T1,T2> {
+}
+CollectionsTestFixture <|-- NativeMultiHashMapTests
+NativeMultiHashMapTests +-- NativeMultiHashMap_CreateAndUseAfterFreeBurst
+IJob <|-- NativeMultiHashMap_CreateAndUseAfterFreeBurst
+NativeMultiHashMapTests +-- NativeMultiHashMap_ForEach_Job
+IJob <|-- NativeMultiHashMap_ForEach_Job
+NativeMultiHashMap_ForEach_Job --> "Input<int,int>" "NativeMultiHashMap`2"
+NativeMultiHashMapTests +-- NativeMultiHashMap_ForEachIterator
+IJob <|-- NativeMultiHashMap_ForEachIterator
+NativeMultiHashMapTests +-- ParallelWriteToMultiHashMapJob
+IJobParallelFor <|-- ParallelWriteToMultiHashMapJob
+NativeMultiHashMapTests +-- BurstedCustomAllocatorJob
+IJob <|-- BurstedCustomAllocatorJob
+@enduml

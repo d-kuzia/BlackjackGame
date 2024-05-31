@@ -1,0 +1,34 @@
+@startuml
+class EditorMainWindow {
+}
+class EditorBottomToolbar {
+    + BindElements(controllerEvents:ControllerEvents, viewEvents:ViewEvents) : void
+}
+class EditorTopToolbar {
+    + BindElements(controllerEvents:ControllerEvents, viewEvents:ViewEvents) : void
+}
+class EditorTabHeader {
+}
+class CustomUxmlFactory {
+}
+class CustomUxmlFactory {
+}
+class CustomUxmlFactory {
+}
+class CustomUxmlFactory {
+}
+class "UxmlFactory`2"<T1,T2> {
+}
+VisualElement <|-- EditorMainWindow
+VisualElement <|-- EditorBottomToolbar
+VisualElement <|-- EditorTopToolbar
+VisualElement <|-- EditorTabHeader
+EditorMainWindow +-- CustomUxmlFactory
+"UxmlFactory`2" "<EditorMainWindow,UxmlTraits>" <|-- CustomUxmlFactory
+EditorBottomToolbar +-- CustomUxmlFactory
+"UxmlFactory`2" "<EditorBottomToolbar,UxmlTraits>" <|-- CustomUxmlFactory
+EditorTopToolbar +-- CustomUxmlFactory
+"UxmlFactory`2" "<EditorTopToolbar,UxmlTraits>" <|-- CustomUxmlFactory
+EditorTabHeader +-- CustomUxmlFactory
+"UxmlFactory`2" "<EditorTabHeader,UxmlTraits>" <|-- CustomUxmlFactory
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class BasicCameraFollow {
+    + moveSpeed : float
+}
+MonoBehaviour <|-- BasicCameraFollow
+BasicCameraFollow --> "followTarget" GameObject
+@enduml

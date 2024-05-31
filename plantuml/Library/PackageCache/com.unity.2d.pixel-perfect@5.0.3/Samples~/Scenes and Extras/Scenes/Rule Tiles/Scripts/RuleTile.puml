@@ -1,0 +1,45 @@
+@startuml
+class RuleTile {
+    + <<override>> GetTileData(position:Vector3Int, tileMap:ITilemap, tileData:TileData) : void
+    + <<override>> GetTileAnimationData(position:Vector3Int, tilemap:ITilemap, tileAnimationData:TileAnimationData) : bool
+    + <<override>> RefreshTile(location:Vector3Int, tileMap:ITilemap) : void
+    + RuleMatches(rule:TilingRule, position:Vector3Int, tilemap:ITilemap, transform:Matrix4x4) : bool
+    + RuleMatches(rule:TilingRule, position:Vector3Int, tilemap:ITilemap, angle:int) : bool
+    + RuleMatches(rule:TilingRule, position:Vector3Int, tilemap:ITilemap, mirrorX:bool, mirrorY:bool) : bool
+    + GetRotatedPos(original:Vector3Int, rotation:int) : Vector3Int
+    + GetMirroredPos(original:Vector3Int, mirrorX:bool, mirrorY:bool) : Vector3Int
+}
+class TilingRule {
+    + m_AnimationSpeed : float
+    + m_PerlinScale : float
+    + TilingRule()
+}
+class "List`1"<T> {
+}
+enum Transform {
+    Fixed,
+    Rotated,
+    MirrorX,
+    MirrorY,
+}
+enum Neighbor {
+    DontCare,
+    This,
+    NotThis,
+}
+enum OutputSprite {
+    Single,
+    Random,
+    Animation,
+}
+TileBase <|-- RuleTile
+RuleTile --> "m_DefaultSprite" Sprite
+RuleTile --> "m_TilingRules<TilingRule>" "List`1"
+RuleTile +-- TilingRule
+TilingRule --> "m_RuleTransform" Transform
+TilingRule --> "m_Output" OutputSprite
+TilingRule --> "m_RandomTransform" Transform
+TilingRule +-- Transform
+TilingRule +-- Neighbor
+TilingRule +-- OutputSprite
+@enduml

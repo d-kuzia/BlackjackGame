@@ -1,0 +1,41 @@
+@startuml
+class SpriteLibraryDataInspector {
+    + SpriteLibraryDataInspector(so:SerializedObject, library:SerializedProperty)
+    + {static} UpdateLibraryWithNewMainLibrary(newMainLibrary:SpriteLibraryAsset, destLibrary:SerializedProperty) : void
+    + OnGUI() : void
+}
+class Style {
+    + lineSpacing : int = 3
+    + spriteGridSize : int = 64
+    + gridPadding : float
+    + gridHeaderSize : int = 20
+    + gridFooterSize : int = 20
+    + gridHeight : float
+    + newCategoryText : string
+    + categoryLabel : string
+    + categoryElementHeight : float
+    + categoryTextFieldHeight : float
+    + newEntryText : string
+    + categoryLabelWidth : float = 100
+    + Style()
+    + InitStyle(currentEvent:Event) : void
+}
+class SpriteCategoryGridState {
+    + selectedIndex : int
+}
+SpriteLibraryDataInspector +-- Style
+Style o-> "duplicateWarningText" GUIContent
+Style --> "duplicateWarning" GUIContent
+Style --> "gridSize" Vector2
+Style --> "footerBackground" GUIStyle
+Style --> "boxBackground" GUIStyle
+Style --> "preButton" GUIStyle
+Style --> "headerBackground" GUIStyle
+Style --> "gridList" GUIStyle
+Style o-> "iconToolbarPlus" GUIContent
+Style o-> "iconToolbarMinus" GUIContent
+Style o-> "overrideIcon" GUIContent
+SpriteLibraryDataInspector +-- SpriteCategoryGridState
+SpriteCategoryGridState --> "scrollPos" Vector2
+SpriteCategoryGridState --> "Default" SpriteCategoryGridState
+@enduml

@@ -1,0 +1,90 @@
+@startuml
+class NativeSortExtension <<static>> {
+    + <<unsafe>> {static} Sort(array:T*, length:int) : void
+    + <<unsafe>> {static} Sort(array:T*, length:int, comp:U) : void
+    + <<unsafe>> {static} Sort(array:T*, length:int, inputDeps:JobHandle) : JobHandle
+    + <<unsafe>> {static} SortJob(array:T*, length:int) : SortJob<T, DefaultComparer<T>>
+    + <<unsafe>> {static} Sort(array:T*, length:int, comp:U, inputDeps:JobHandle) : JobHandle
+    + <<unsafe>> {static} SortJob(array:T*, length:int, comp:U) : SortJob<T, U>
+    + <<unsafe>> {static} BinarySearch(ptr:T*, length:int, value:T) : int
+    + <<unsafe>> {static} BinarySearch(ptr:T*, length:int, value:T, comp:U) : int
+    + <<unsafe>> {static} Sort(array:NativeArray<T>) : void
+    + <<unsafe>> {static} Sort(array:NativeArray<T>, comp:U) : void
+    + <<unsafe>> {static} Sort(array:NativeArray<T>, inputDeps:JobHandle) : JobHandle
+    + <<unsafe>> {static} SortJob(array:NativeArray<T>) : SortJob<T, DefaultComparer<T>>
+    + <<unsafe>> {static} Sort(array:NativeArray<T>, comp:U, inputDeps:JobHandle) : JobHandle
+    + <<unsafe>> {static} SortJob(array:NativeArray<T>, comp:U) : SortJob<T, U>
+    + {static} BinarySearch(array:NativeArray<T>, value:T) : int
+    + <<unsafe>> {static} BinarySearch(array:NativeArray<T>, value:T, comp:U) : int
+    + <<unsafe>> {static} Sort(list:NativeList<T>) : void
+    + <<unsafe>> {static} Sort(list:NativeList<T>, comp:U) : void
+    + <<unsafe>> {static} Sort(array:NativeList<T>, inputDeps:JobHandle) : JobHandle
+    + <<unsafe>> {static} SortJob(list:NativeList<T>) : SortJob<T, DefaultComparer<T>>
+    + <<unsafe>> {static} Sort(list:NativeList<T>, comp:U, inputDeps:JobHandle) : JobHandle
+    + <<unsafe>> {static} SortJob(list:NativeList<T>, comp:U) : SortJob<T, U>
+    + {static} BinarySearch(list:NativeList<T>, value:T) : int
+    + <<unsafe>> {static} BinarySearch(list:NativeList<T>, value:T, comp:U) : int
+    + <<unsafe>> {static} Sort(list:UnsafeList<T>) : void
+    + <<unsafe>> {static} Sort(list:UnsafeList<T>, comp:U) : void
+    + <<unsafe>> {static} Sort(list:UnsafeList<T>, inputDeps:JobHandle) : JobHandle
+    + <<unsafe>> {static} SortJob(list:UnsafeList<T>) : SortJob<T, DefaultComparer<T>>
+    + <<unsafe>> {static} Sort(list:UnsafeList<T>, comp:U, inputDeps:JobHandle) : JobHandle
+    + <<unsafe>> {static} SortJob(list:UnsafeList<T>, comp:U) : SortJob<T, U>
+    + {static} BinarySearch(list:UnsafeList<T>, value:T) : int
+    + <<unsafe>> {static} BinarySearch(list:UnsafeList<T>, value:T, comp:U) : int
+    + <<unsafe>> {static} Sort(slice:NativeSlice<T>) : void
+    + <<unsafe>> {static} Sort(slice:NativeSlice<T>, comp:U) : void
+    + <<unsafe>> {static} Sort(slice:NativeSlice<T>, inputDeps:JobHandle) : JobHandle
+    + <<unsafe>> {static} SortJob(slice:NativeSlice<T>) : SortJob<T, DefaultComparer<T>>
+    + <<unsafe>> {static} Sort(slice:NativeSlice<T>, comp:U, inputDeps:JobHandle) : JobHandle
+    + <<unsafe>> {static} SortJob(slice:NativeSlice<T>, comp:U) : SortJob<T, U>
+    + {static} BinarySearch(slice:NativeSlice<T>, value:T) : int
+    + <<unsafe>> {static} BinarySearch(slice:NativeSlice<T>, value:T, comp:U) : int
+}
+struct "SortJob`2"<T,U> {
+    + Comp : U
+    + Length : int
+    + Schedule(inputDeps:JobHandle) : JobHandle
+}
+struct "DefaultComparer`1"<T> {
+    + Compare(x:T, y:T) : int
+}
+struct "SegmentSort`2"<T,U> {
+    + Comp : U
+    + Length : int
+    + SegmentWidth : int
+    + Execute(index:int) : void
+}
+struct "SegmentSortMerge`2"<T,U> {
+    + Comp : U
+    + Length : int
+    + SegmentWidth : int
+    + Execute() : void
+}
+class "IComparer`1"<T> {
+}
+struct SegmentSort {
+    + Length : int
+    + SegmentWidth : int
+    + Execute(index:int) : void
+}
+struct SegmentSortMerge {
+    + Length : int
+    + SegmentWidth : int
+    + Execute() : void
+}
+class "IComparable`1"<T> {
+}
+NativeSortExtension +-- "DefaultComparer`1"
+"IComparer`1" "<T>" <|-- "DefaultComparer`1"
+NativeSortExtension +-- "SegmentSort`2"
+IJobParallelFor <|-- "SegmentSort`2"
+NativeSortExtension +-- "SegmentSortMerge`2"
+IJob <|-- "SegmentSortMerge`2"
+"SortJob`2" +-- SegmentSort
+IJobParallelFor <|-- SegmentSort
+SegmentSort --> "Comp" U
+"SortJob`2" +-- SegmentSortMerge
+IJob <|-- SegmentSortMerge
+SegmentSortMerge --> "Comp" U
+@enduml

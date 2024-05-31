@@ -1,0 +1,20 @@
+@startuml
+class NativeHashMapTests_InJobs {
+    + NativeHashMap_Read_And_Write() : void
+    + NativeHashMap_Read_And_Write_Full() : void
+    + NativeHashMap_Key_Collisions() : void
+    + NativeHashMap_Clear_And_Write() : void
+    + NativeHashMap_DisposeJob() : void
+    + NativeHashMap_DisposeJobWithMissingDependencyThrows() : void
+    + NativeHashMap_DisposeJobCantBeScheduled() : void
+}
+struct Clear {
+    + Execute() : void
+}
+class "NativeHashMap`2"<T1,T2> {
+}
+NativeHashMapTestsFixture <|-- NativeHashMapTests_InJobs
+NativeHashMapTests_InJobs +-- Clear
+IJob <|-- Clear
+Clear --> "hashMap<int,int>" "NativeHashMap`2"
+@enduml

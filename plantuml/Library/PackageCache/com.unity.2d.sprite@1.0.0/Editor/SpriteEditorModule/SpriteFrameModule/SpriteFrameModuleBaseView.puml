@@ -1,0 +1,24 @@
+@startuml
+abstract class SpriteFrameModuleBase <<partial>> {
+    + <<override>> DoMainGUI() : void
+    + <<override>> DoPostGUI() : void
+}
+enum GizmoMode {
+    BorderEditing,
+    RectEditing,
+}
+class Styles {
+    + Styles()
+}
+SpriteEditorModuleBase <|-- SpriteFrameModuleBase
+SpriteFrameModuleBase +-- GizmoMode
+SpriteFrameModuleBase +-- Styles
+Styles o-> "dragdot" GUIStyle
+Styles o-> "dragdotactive" GUIStyle
+Styles o-> "createRect" GUIStyle
+Styles o-> "pivotdotactive" GUIStyle
+Styles o-> "pivotdot" GUIStyle
+Styles o-> "dragBorderdot" GUIStyle
+Styles o-> "dragBorderDotActive" GUIStyle
+Styles --> "toolbar" GUIStyle
+@enduml

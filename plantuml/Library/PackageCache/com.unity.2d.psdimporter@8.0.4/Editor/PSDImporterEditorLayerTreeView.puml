@@ -1,0 +1,41 @@
+@startuml
+class PSDLayerImportSettingSerializedPropertyWrapper {
+    + name : string <<get>> <<set>>
+    + isGroup : bool <<get>> <<set>>
+    + layerID : int <<get>> <<set>>
+    + flatten : bool <<get>> <<set>>
+    + wasLayerImported : bool <<get>> <<set>>
+    + importLayer : bool <<get>> <<set>>
+    + PSDLayerImportSettingSerializedPropertyWrapper(sp:SerializedProperty, array:SerializedProperty, layer:PSDLayerData, index:int)
+}
+class PSDTreeViewNode {
+    + disable : bool <<get>> <<set>>
+    + PSDTreeViewNode()
+    + PSDTreeViewNode(layer:PSDLayerData, id:int, importSetting:PSDLayerImportSettingSerializedPropertyWrapper)
+    + <<virtual>> importLayer : bool <<get>> <<set>>
+    + BuildTreeViewItemData() : TreeViewItemData<int>
+}
+class PSDFoldoutTreeViewNode {
+    + <<virtual>> flatten : bool <<get>> <<set>>
+    + PSDFoldoutTreeViewNode()
+    + PSDFoldoutTreeViewNode(layer:PSDLayerData, id:int, property:PSDLayerImportSettingSerializedPropertyWrapper)
+}
+class PSDFileTreeViewNode {
+    + PSDFileTreeViewNode(sp:LayerManagementTreeViewData)
+    + <<override>> flatten : bool <<get>> <<set>>
+    + <<override>> importLayer : bool <<get>> <<set>>
+}
+class PSDLayerTreeViewNode {
+    + PSDLayerTreeViewNode(layer:PSDLayerData, id:int, property:PSDLayerImportSettingSerializedPropertyWrapper)
+}
+class PSDGroupTreeViewNode {
+    + PSDGroupTreeViewNode(layer:PSDLayerData, id:int, property:PSDLayerImportSettingSerializedPropertyWrapper)
+}
+IPSDLayerMappingStrategyComparable <|-- PSDLayerImportSettingSerializedPropertyWrapper
+TreeViewItem <|-- PSDTreeViewNode
+PSDTreeViewNode --> "layer" PSDLayerData
+PSDTreeViewNode <|-- PSDFoldoutTreeViewNode
+PSDFoldoutTreeViewNode <|-- PSDFileTreeViewNode
+PSDTreeViewNode <|-- PSDLayerTreeViewNode
+PSDFoldoutTreeViewNode <|-- PSDGroupTreeViewNode
+@enduml

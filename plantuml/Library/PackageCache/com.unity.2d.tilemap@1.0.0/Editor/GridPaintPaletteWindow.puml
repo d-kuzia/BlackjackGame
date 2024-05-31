@@ -1,0 +1,34 @@
+@startuml
+class GridPaintPaletteWindow {
+    + {static} isActive : bool <<get>>
+    + OnEnable() : void
+    + OnDisable() : void
+    + {static} OpenTilemapPalette() : void
+}
+class Styles <<static>> {
+}
+class UIStyles <<static>> {
+    + {static} <<readonly>> styleSheetPath : string = "Packages/com.unity.2d.tilemap/Editor/UI/GridPaintPaletteWindow.uss"
+    + {static} <<readonly>> ussClassName : string = "unity-grid-paint-palette-window"
+}
+class "List`1"<T> {
+}
+EditorWindow <|-- GridPaintPaletteWindow
+GridPaintPaletteWindow --> "instances<GridPaintPaletteWindow>" "List`1"
+GridPaintPaletteWindow --> "palette" GameObject
+GridPaintPaletteWindow --> "paletteInstance" GameObject
+GridPaintPaletteWindow --> "clipboardView" GridPaintPaletteClipboard
+GridPaintPaletteWindow +-- Styles
+Styles o-> "selectPaintTarget" GUIContent
+Styles o-> "selectPalettePrefab" GUIContent
+Styles o-> "selectTileAsset" GUIContent
+Styles o-> "unlockPaletteEditing" GUIContent
+Styles o-> "lockPaletteEditing" GUIContent
+Styles o-> "verticalBrushSplit" GUIContent
+Styles o-> "horizontalBrushSplit" GUIContent
+Styles o-> "openTilePalettePreferences" GUIContent
+Styles o-> "openAsFloatingWindow" GUIContent
+Styles o-> "openAsDockableWindow" GUIContent
+Styles o-> "tilePalette" GUIContent
+GridPaintPaletteWindow +-- UIStyles
+@enduml

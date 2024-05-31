@@ -1,0 +1,74 @@
+@startuml
+struct HeapString {
+    + Length : int <<get>> <<set>>
+    + Capacity : int <<get>> <<set>>
+    + TryResize(newLength:int, clearOptions:NativeArrayOptions) : bool
+    + IsEmpty : bool <<get>>
+    + IsCreated : bool <<get>>
+    + <<unsafe>> GetUnsafePtr() : byte*
+    + ElementAt(index:int) : ref byte
+    + Clear() : void
+    + Add(value:byte) : void
+    + CompareTo(other:HeapString) : int
+    + Equals(other:HeapString) : bool
+    + Dispose() : void
+    + Value : string <<get>>
+    + GetEnumerator() : Enumerator
+    + CompareTo(other:String) : int
+    + Equals(other:String) : bool
+    + HeapString(source:String, allocator:Allocator)
+    + HeapString(capacity:int, allocator:Allocator)
+    + HeapString(allocator:Allocator)
+    + CompareTo(other:FixedString32Bytes) : int
+    + HeapString(source:FixedString32Bytes, allocator:Allocator)
+    + Equals(other:FixedString32Bytes) : bool
+    + CompareTo(other:FixedString64Bytes) : int
+    + HeapString(source:FixedString64Bytes, allocator:Allocator)
+    + Equals(other:FixedString64Bytes) : bool
+    + CompareTo(other:FixedString128Bytes) : int
+    + HeapString(source:FixedString128Bytes, allocator:Allocator)
+    + Equals(other:FixedString128Bytes) : bool
+    + CompareTo(other:FixedString512Bytes) : int
+    + HeapString(source:FixedString512Bytes, allocator:Allocator)
+    + Equals(other:FixedString512Bytes) : bool
+    + CompareTo(other:FixedString4096Bytes) : int
+    + HeapString(source:FixedString4096Bytes, allocator:Allocator)
+    + Equals(other:FixedString4096Bytes) : bool
+    + <<override>> ToString() : String
+    + <<override>> GetHashCode() : int
+    + <<override>> Equals(other:object) : bool
+}
+class "INativeList`1"<T> {
+}
+class "IComparable`1"<T> {
+}
+class "IEquatable`1"<T> {
+}
+struct Enumerator {
+    + Enumerator(source:HeapString)
+    + Dispose() : void
+    + MoveNext() : bool
+    + Reset() : void
+}
+class "IEnumerator`1"<T> {
+}
+"INativeList`1" "<byte>" <|-- HeapString
+IDisposable <|-- HeapString
+IUTF8Bytes <|-- HeapString
+"IComparable`1" "<String>" <|-- HeapString
+"IEquatable`1" "<String>" <|-- HeapString
+"IComparable`1" "<HeapString>" <|-- HeapString
+"IEquatable`1" "<HeapString>" <|-- HeapString
+"IComparable`1" "<FixedString32Bytes>" <|-- HeapString
+"IEquatable`1" "<FixedString32Bytes>" <|-- HeapString
+"IComparable`1" "<FixedString64Bytes>" <|-- HeapString
+"IEquatable`1" "<FixedString64Bytes>" <|-- HeapString
+"IComparable`1" "<FixedString128Bytes>" <|-- HeapString
+"IEquatable`1" "<FixedString128Bytes>" <|-- HeapString
+"IComparable`1" "<FixedString512Bytes>" <|-- HeapString
+"IEquatable`1" "<FixedString512Bytes>" <|-- HeapString
+"IComparable`1" "<FixedString4096Bytes>" <|-- HeapString
+"IEquatable`1" "<FixedString4096Bytes>" <|-- HeapString
+HeapString +-- Enumerator
+"IEnumerator`1" "<Unicode.Rune>" <|-- Enumerator
+@enduml

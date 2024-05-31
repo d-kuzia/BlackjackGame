@@ -1,0 +1,29 @@
+@startuml
+class NativeStreamTests {
+    + PopulateInts(count:int, batchSize:int) : void
+    + CreateAndDestroy(count:int) : void
+    + ItemCount(count:int, batchSize:int) : void
+    + ToArray(count:int, batchSize:int) : void
+    + NativeStream_DisposeJob() : void
+    + UnsafeStream_ScheduleCreate_NativeList() : void
+    + UnsafeStream_ScheduleCreate_NativeArray() : void
+    + NativeStream_CustomAllocatorTest() : void
+    + <<unsafe>> NativeStream_BurstedCustomAllocatorTest() : void
+}
+struct WriteInts {
+    + Execute(index:int) : void
+}
+struct ReadInts {
+    + Execute(index:int) : void
+}
+struct BurstedCustomAllocatorJob {
+    + Execute() : void
+}
+CollectionsTestFixture <|-- NativeStreamTests
+NativeStreamTests +-- WriteInts
+IJobParallelFor <|-- WriteInts
+NativeStreamTests +-- ReadInts
+IJobParallelFor <|-- ReadInts
+NativeStreamTests +-- BurstedCustomAllocatorJob
+IJob <|-- BurstedCustomAllocatorJob
+@enduml

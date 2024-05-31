@@ -1,0 +1,11 @@
+@startuml
+class CollectionsTestCommonBase {
+    + <<virtual>> Setup() : void
+    + <<virtual>> TearDown() : void
+}
+abstract class CollectionsTestFixture {
+    + <<override>> Setup() : void
+    + <<override>> TearDown() : void
+}
+CollectionsTestCommonBase <|-- CollectionsTestFixture
+@enduml

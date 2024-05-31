@@ -1,0 +1,20 @@
+@startuml
+class UnsafeHashMapTests {
+    + UnsafeHashMap_AddJob() : void
+    + UnsafeHashMap_ForEach(n:int) : void
+    + UnsafeHashSet_ToArray() : void
+    + UnsafeHashMap_CustomAllocatorTest() : void
+    + <<unsafe>> UnsafeHashMap_BurstedCustomAllocatorTest() : void
+}
+struct UnsafeHashMapAddJob {
+    + Execute() : void
+}
+struct BurstedCustomAllocatorJob {
+    + Execute() : void
+}
+CollectionsTestCommonBase <|-- UnsafeHashMapTests
+UnsafeHashMapTests +-- UnsafeHashMapAddJob
+IJob <|-- UnsafeHashMapAddJob
+UnsafeHashMapTests +-- BurstedCustomAllocatorJob
+IJob <|-- BurstedCustomAllocatorJob
+@enduml

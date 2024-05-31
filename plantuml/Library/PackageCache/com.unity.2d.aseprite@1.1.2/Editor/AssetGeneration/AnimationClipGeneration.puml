@@ -1,0 +1,5 @@
+@startuml
+class AnimationClipGeneration <<static>> {
+    + {static} Generate(assetName:string, sprites:Sprite[], file:AsepriteFile, layers:List<Layer>, frames:List<Frame>, tags:List<Tag>, layerIdToGameObject:Dictionary<int, GameObject>) : AnimationClip[]
+}
+@enduml

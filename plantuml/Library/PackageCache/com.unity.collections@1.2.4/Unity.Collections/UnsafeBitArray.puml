@@ -1,0 +1,28 @@
+@startuml
+struct UnsafeBitArray {
+    + Length : int
+    + <<unsafe>> UnsafeBitArray(ptr:void*, sizeInBytes:int, allocator:AllocatorManager.AllocatorHandle)
+    + UnsafeBitArray(numBits:int, allocator:AllocatorManager.AllocatorHandle, options:NativeArrayOptions)
+    + IsCreated : bool <<get>>
+    + Dispose() : void
+    + Dispose(inputDeps:JobHandle) : JobHandle
+    + Clear() : void
+    + Set(pos:int, value:bool) : void
+    + SetBits(pos:int, value:bool, numBits:int) : void
+    + SetBits(pos:int, value:ulong, numBits:int) : void
+    + GetBits(pos:int, numBits:int) : ulong
+    + IsSet(pos:int) : bool
+    + Copy(dstPos:int, srcPos:int, numBits:int) : void
+    + Copy(dstPos:int, srcBitArray:UnsafeBitArray, srcPos:int, numBits:int) : void
+    + Find(pos:int, numBits:int) : int
+    + Find(pos:int, count:int, numBits:int) : int
+    + TestNone(pos:int, numBits:int) : bool
+    + TestAny(pos:int, numBits:int) : bool
+    + TestAll(pos:int, numBits:int) : bool
+    + CountBits(pos:int, numBits:int) : int
+}
+class UnsafeBitArrayDebugView <<sealed>> {
+    + UnsafeBitArrayDebugView(data:UnsafeBitArray)
+}
+INativeDisposable <|-- UnsafeBitArray
+@enduml

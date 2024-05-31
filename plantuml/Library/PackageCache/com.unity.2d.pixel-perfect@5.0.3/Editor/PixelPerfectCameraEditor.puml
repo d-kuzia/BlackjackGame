@@ -1,0 +1,29 @@
+@startuml
+class PixelPerfectCameraEditor {
+    + OnEnable() : void
+    + <<override>> RequiresConstantRepaint() : bool
+    + <<override>> OnInspectorGUI() : void
+}
+class Style {
+    + {static} srpWarning : string = "Pixel Perfect Camera in the 2D Pixel Perfect package isn't compatible with Scriptable Render Pipeline. If you are using the Universal Render Pipeline, you can upgrade this to the Pixel Perfect Camera component that ships with URP."
+    + {static} pixelPerfectDialogUpgrade : string = "The upgrade will convert the selected Pixel Perfect Camera to the URP version. You can't undo this operation."
+    + {static} pixelPerfectDialogTitle : string = "Pixel Perfect Camera Converter"
+    + {static} pixelPerfectDialogProceed : string = "Proceed"
+    + {static} pixelPerfectDialogCancel : string = "Cancel"
+    + Style()
+}
+Editor <|-- PixelPerfectCameraEditor
+PixelPerfectCameraEditor +-- Style
+Style o-> "x" GUIContent
+Style o-> "y" GUIContent
+Style o-> "assetsPPU" GUIContent
+Style o-> "refRes" GUIContent
+Style o-> "upscaleRT" GUIContent
+Style o-> "pixelSnapping" GUIContent
+Style o-> "cropFrame" GUIContent
+Style o-> "stretchFill" GUIContent
+Style o-> "currentPixelRatio" GUIContent
+Style o-> "runInEditMode" GUIContent
+Style o-> "pixelPerfectButtonUpgrade" GUIContent
+Style --> "centeredLabel" GUIStyle
+@enduml

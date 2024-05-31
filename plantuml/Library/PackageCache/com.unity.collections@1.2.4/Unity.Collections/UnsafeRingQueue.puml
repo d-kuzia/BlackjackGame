@@ -1,0 +1,22 @@
+@startuml
+struct RingControl {
+}
+struct "UnsafeRingQueue`1"<T> {
+    + IsEmpty : bool <<get>>
+    + Length : int <<get>>
+    + Capacity : int <<get>>
+    + UnsafeRingQueue(ptr:T*, capacity:int)
+    + UnsafeRingQueue(capacity:int, allocator:AllocatorManager.AllocatorHandle, options:NativeArrayOptions)
+    + IsCreated : bool <<get>>
+    + Dispose() : void
+    + Dispose(inputDeps:JobHandle) : JobHandle
+    + TryEnqueue(value:T) : bool
+    + Enqueue(value:T) : void
+    + TryDequeue(item:T) : bool
+    + Dequeue() : T
+}
+class "UnsafeRingQueueDebugView`1"<T> <<sealed>> {
+    + UnsafeRingQueueDebugView(data:UnsafeRingQueue<T>)
+}
+INativeDisposable <|-- "UnsafeRingQueue`1"
+@enduml

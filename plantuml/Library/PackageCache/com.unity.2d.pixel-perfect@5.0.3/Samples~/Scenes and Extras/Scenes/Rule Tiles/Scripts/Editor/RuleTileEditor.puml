@@ -1,0 +1,13 @@
+@startuml
+class RuleTileEditor {
+    + OnEnable() : void
+    + <<override>> OnInspectorGUI() : void
+    + <<override>> RenderStaticPreview(assetPath:string, subAssets:Object[], width:int, height:int) : Texture2D
+}
+class MenuItemData {
+    + MenuItemData(mRule:RuleTile.TilingRule, mNewValue:RuleTile.TilingRule.Transform)
+}
+Editor <|-- RuleTileEditor
+RuleTileEditor --> "tile" RuleTile
+RuleTileEditor +-- MenuItemData
+@enduml

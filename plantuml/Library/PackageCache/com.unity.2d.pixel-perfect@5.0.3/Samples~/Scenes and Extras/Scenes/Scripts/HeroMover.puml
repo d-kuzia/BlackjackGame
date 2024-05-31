@@ -1,0 +1,7 @@
+@startuml
+class HeroMover {
+    + Amplitude : float = 1.0f
+    + Frequency : float = 1.0f
+}
+MonoBehaviour <|-- HeroMover
+@enduml

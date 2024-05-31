@@ -1,0 +1,8 @@
+@startuml
+class DeckScript {
+    + Shuffle() : void
+    + DealCard(cardScript:CardScript) : int
+    + GetCardBack() : Sprite
+}
+MonoBehaviour <|-- DeckScript
+@enduml

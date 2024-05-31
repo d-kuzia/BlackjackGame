@@ -1,0 +1,48 @@
+@startuml
+struct NativeQueueBlockHeader {
+    + m_NumItems : int
+}
+struct NativeQueueBlockPoolData {
+    + AllocateBlock() : NativeQueueBlockHeader*
+    + FreeBlock(block:NativeQueueBlockHeader*) : void
+}
+class NativeQueueBlockPool <<unsafe>> {
+}
+struct NativeQueueData {
+    + m_MaxItems : int
+    + m_CurrentRead : int
+    + {static} AllocateWriteBlockMT(data:NativeQueueData*, pool:NativeQueueBlockPoolData*, threadIndex:int) : NativeQueueBlockHeader*
+    + <<unsafe>> {static} AllocateQueue(label:AllocatorManager.AllocatorHandle, outBuf:NativeQueueData*) : void
+    + <<unsafe>> {static} DeallocateQueue(data:NativeQueueData*, pool:NativeQueueBlockPoolData*, allocation:AllocatorManager.AllocatorHandle) : void
+}
+struct "NativeQueue`1"<T> {
+    + NativeQueue(allocator:AllocatorManager.AllocatorHandle)
+    + IsEmpty() : bool
+    + Count : int <<get>>
+    + Peek() : T
+    + Enqueue(value:T) : void
+    + Dequeue() : T
+    + TryDequeue(item:T) : bool
+    + ToArray(allocator:AllocatorManager.AllocatorHandle) : NativeArray<T>
+    + Clear() : void
+    + IsCreated : bool <<get>>
+    + Dispose() : void
+    + Dispose(inputDeps:JobHandle) : JobHandle
+    + AsParallelWriter() : ParallelWriter
+}
+struct NativeQueueDispose {
+    + Dispose() : void
+}
+struct NativeQueueDisposeJob {
+    + Execute() : void
+}
+struct ParallelWriter {
+    + Enqueue(value:T) : void
+}
+NativeQueueData --> "m_FirstBlock" IntPtr
+NativeQueueData --> "m_LastBlock" IntPtr
+INativeDisposable <|-- "NativeQueue`1"
+IJob <|-- NativeQueueDisposeJob
+NativeQueueDisposeJob --> "Data" NativeQueueDispose
+"NativeQueue`1" +-- ParallelWriter
+@enduml

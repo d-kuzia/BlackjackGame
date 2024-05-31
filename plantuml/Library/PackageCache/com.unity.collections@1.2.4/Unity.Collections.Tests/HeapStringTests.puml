@@ -1,0 +1,26 @@
+@startuml
+class HeapStringTests {
+    + HeapStringFixedStringCtors() : void
+    + HeapStringFormatExtension1Params() : void
+    + HeapStringCorrectLengthAfterClear() : void
+    + HeapStringFormatExtension2Params() : void
+    + HeapStringFormatExtension3Params() : void
+    + HeapStringFormatExtension4Params() : void
+    + HeapStringFormatExtension5Params() : void
+    + HeapStringFormatExtension6Params() : void
+    + HeapStringFormatExtension7Params() : void
+    + HeapStringFormatExtension8Params() : void
+    + HeapStringFormatExtension9Params() : void
+    + HeapStringFormatExtension10Params() : void
+    + HeapStringAppendGrows() : void
+    + HeapStringAppendString() : void
+    + HeapStringCopyFromBytesWorks(a:String) : void
+    + HeapStringToStringWorks(a:String) : void
+    + HeapStringEqualsWorks(a:String, b:String) : void
+    + HeapStringForEach() : void
+    + HeapStringIndexOf() : void
+    + HeapStringLastIndexOf() : void
+    + HeapStringContains() : void
+    + HeapStringComparisons() : void
+}
+@enduml

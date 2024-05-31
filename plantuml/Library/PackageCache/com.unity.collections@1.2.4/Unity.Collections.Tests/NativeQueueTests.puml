@@ -1,0 +1,26 @@
+@startuml
+class NativeQueueTests {
+    + Enqueue_Dequeue() : void
+    + ConcurrentEnqueue_Dequeue() : void
+    + Enqueue_Dequeue_Peek() : void
+    + Enqueue_Dequeue_Clear() : void
+    + Double_Deallocate_Throws() : void
+    + EnqueueScalability() : void
+    + Enqueue_Wrap() : void
+    + ConcurrentEnqueue_Wrap() : void
+    + NativeQueue_DisposeJob() : void
+    + TryDequeue_OnEmptyQueueWhichHadElements_RetainsValidState() : void
+    + TryDequeue_OnEmptyQueue_RetainsValidState() : void
+    + ToArray_ContainsCorrectElements() : void
+    + ToArray_RespectsDequeue() : void
+    + NativeQueue_UseAfterFree_UsesCustomOwnerTypeName() : void
+    + NativeQueue_CustomAllocatorTest() : void
+    + <<unsafe>> NativeQueue_BurstedCustomAllocatorTest() : void
+}
+struct BurstedCustomAllocatorJob {
+    + Execute() : void
+}
+CollectionsTestCommonBase <|-- NativeQueueTests
+NativeQueueTests +-- BurstedCustomAllocatorJob
+IJob <|-- BurstedCustomAllocatorJob
+@enduml

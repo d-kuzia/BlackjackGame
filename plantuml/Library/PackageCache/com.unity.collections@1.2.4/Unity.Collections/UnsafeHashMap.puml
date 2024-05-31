@@ -1,0 +1,76 @@
+@startuml
+struct UnsafeHashMapBucketData {
+    + <<readonly>> bucketCapacityMask : int
+}
+struct UnsafeHashMapData {
+}
+struct UnsafeHashMapDataDispose {
+    + Dispose() : void
+}
+struct UnsafeHashMapDataDisposeJob {
+    + Execute() : void
+}
+struct "UnsafeHashMapBase`2"<TKey,TValue> {
+}
+struct "KeyValue`2"<TKey,TValue> {
+    + Key : TKey <<get>>
+    + GetKeyValue(key:TKey, value:TValue) : bool
+}
+struct UnsafeHashMapDataEnumerator {
+}
+struct "UnsafeHashMap`2"<TKey,TValue> {
+    + UnsafeHashMap(capacity:int, allocator:AllocatorManager.AllocatorHandle)
+    + IsEmpty : bool <<get>>
+    + Count() : int
+    + Capacity : int <<get>> <<set>>
+    + Clear() : void
+    + TryAdd(key:TKey, item:TValue) : bool
+    + Add(key:TKey, item:TValue) : void
+    + Remove(key:TKey) : bool
+    + TryGetValue(key:TKey, item:TValue) : bool
+    + ContainsKey(key:TKey) : bool
+    + IsCreated : bool <<get>>
+    + Dispose() : void
+    + Dispose(inputDeps:JobHandle) : JobHandle
+    + GetKeyArray(allocator:AllocatorManager.AllocatorHandle) : NativeArray<TKey>
+    + GetValueArray(allocator:AllocatorManager.AllocatorHandle) : NativeArray<TValue>
+    + GetKeyValueArrays(allocator:AllocatorManager.AllocatorHandle) : NativeKeyValueArrays<TKey, TValue>
+    + AsParallelWriter() : ParallelWriter
+    + GetEnumerator() : Enumerator
+}
+struct UnsafeHashMapDisposeJob {
+    + Execute() : void
+}
+class "UnsafeHashMapDebuggerTypeProxy`2"<TKey,TValue> <<sealed>> {
+    + UnsafeHashMapDebuggerTypeProxy(target:UnsafeHashMap<TKey, TValue>)
+}
+struct UntypedUnsafeHashMap {
+}
+class "IEquatable`1"<T> {
+}
+class "IEnumerable`1"<T> {
+}
+struct ParallelWriter {
+    + Capacity : int <<get>>
+    + TryAdd(key:TKey, item:TValue) : bool
+}
+struct Enumerator {
+    + Dispose() : void
+    + MoveNext() : bool
+    + Reset() : void
+}
+class "List`1"<T> {
+}
+class "IEnumerator`1"<T> {
+}
+IJob <|-- UnsafeHashMapDataDisposeJob
+"KeyValue`2" --> "Null<TKey,TValue>" "KeyValue`2"
+INativeDisposable <|-- "UnsafeHashMap`2"
+"IEnumerable`1" "<KeyValue<TKey, TValue>>" <|-- "UnsafeHashMap`2"
+IJob <|-- UnsafeHashMapDisposeJob
+"UnsafeHashMapDebuggerTypeProxy`2" --> "Items<Pair<TKey, TValue>>" "List`1"
+"UnsafeHashMap`2" +-- ParallelWriter
+"UnsafeHashMap`2" +-- Enumerator
+"IEnumerator`1" "<KeyValue<TKey, TValue>>" <|-- Enumerator
+Enumerator --> "Current<TKey,TValue>" "KeyValue`2"
+@enduml

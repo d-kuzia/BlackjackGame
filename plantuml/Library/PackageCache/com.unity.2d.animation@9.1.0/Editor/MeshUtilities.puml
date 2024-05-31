@@ -1,0 +1,5 @@
+@startuml
+class MeshUtilities <<static>> {
+    + {static} GetOutlineEdges(indices:int[]) : int2[]
+}
+@enduml

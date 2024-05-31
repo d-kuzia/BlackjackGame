@@ -1,0 +1,19 @@
+@startuml
+class WordsTests {
+    + WordsTests(culture:string)
+    + <<virtual>> Setup() : void
+    + <<virtual>> TearDown() : void
+    + Wtf8TruncatedString(test:string) : void
+    + Wtf8CorruptedString(test:string) : void
+    + <<unsafe>> Utf8EncodeDecode(input_ucs:int) : void
+    + <<unsafe>> Utf16EncodeDecode(input_ucs:int) : void
+    + <<unsafe>> Utf16ToUtf8BMP(source:string) : void
+    + <<unsafe>> Utf16ToUtf8TransBMP(source:string) : void
+    + WordsWorks(value:String) : void
+    + AddWorks(value:String) : void
+    + NumberedWordsWorks(value:String) : void
+    + WordStorageFixedString32Works(value:String) : void
+    + WordStorageFixedString64Works(value:String) : void
+    + WordStorageFixedString128Works(value:String) : void
+}
+@enduml

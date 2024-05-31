@@ -1,0 +1,38 @@
+@startuml
+struct Spinner {
+    + Lock() : void
+    + Unlock() : void
+}
+struct "UnmanagedArray`1"<T> {
+    + UnmanagedArray(length:int, allocator:AllocatorManager.AllocatorHandle)
+    + Dispose() : void
+    + <<unsafe>> GetUnsafePointer() : T*
+}
+struct RewindableAllocator {
+    + Initialize(initialSizeInBytes:int, enableBlockFree:bool) : void
+    + EnableBlockFree : bool <<get>> <<set>>
+    + BlocksAllocated : int <<get>>
+    + InitialSizeInBytes : int <<get>>
+    + Rewind() : void
+    + Dispose() : void
+    + Try(block:AllocatorManager.Block) : int
+    + IsCustomAllocator : bool <<get>>
+    + AllocateNativeArray(length:int) : NativeArray<T>
+    + AllocateNativeList(capacity:int) : NativeList<T>
+}
+struct MemoryBlock {
+    + <<const>> kMaximumAlignment : int = 16384
+    + m_bytes : long
+    + m_current : long
+    + m_allocations : long
+    + MemoryBlock(bytes:long)
+    + Rewind() : void
+    + Dispose() : void
+    + TryAllocate(block:AllocatorManager.Block) : int
+    + Contains(ptr:IntPtr) : bool
+}
+IDisposable <|-- "UnmanagedArray`1"
+RewindableAllocator --> "ToAllocator" Allocator
+RewindableAllocator +-- MemoryBlock
+IDisposable <|-- MemoryBlock
+@enduml

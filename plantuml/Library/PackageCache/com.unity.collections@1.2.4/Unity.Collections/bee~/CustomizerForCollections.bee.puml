@@ -1,0 +1,7 @@
+@startuml
+class CustomizerForCollections {
+    + <<override>> CustomizerFor : string <<get>>
+    + <<override>> CustomizeSelf(program:AsmDefCSharpProgram) : void
+}
+AsmDefCSharpProgramCustomizer <|-- CustomizerForCollections
+@enduml

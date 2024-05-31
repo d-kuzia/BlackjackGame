@@ -1,0 +1,7 @@
+@startuml
+class AsepriteUtilities <<static>> {
+    + {static} ReadString(reader:BinaryReader) : string
+    + {static} ReadAndDecompressedData(reader:BinaryReader, dataLength:int) : byte[]
+    + {static} GenerateImageData(colorDepth:ushort, imageData:byte[], paletteChunk:PaletteChunk, alphaPaletteEntry:byte) : NativeArray<Color32>
+}
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+interface IAssetDatabase {
+}
+class AssetDatabaseSystem {
+    + GetAssetPath(o:Object) : string
+    + GetAssetImporterFromPath(path:string) : AssetImporter
+}
+IAssetDatabase <|-- AssetDatabaseSystem
+@enduml

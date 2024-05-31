@@ -1,0 +1,10 @@
+@startuml
+class DotsRuntimeIgnoreAttribute {
+    + DotsRuntimeIgnoreAttribute(msg:string)
+}
+class IgnoreInPortableTestsAttribute {
+    + IgnoreInPortableTestsAttribute(reason:string)
+}
+Attribute <|-- DotsRuntimeIgnoreAttribute
+Attribute <|-- IgnoreInPortableTestsAttribute
+@enduml

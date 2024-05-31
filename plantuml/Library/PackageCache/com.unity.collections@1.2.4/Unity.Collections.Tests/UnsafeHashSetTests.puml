@@ -1,0 +1,27 @@
+@startuml
+class UnsafeHashSetTests {
+    + UnsafeHashSet_IsEmpty() : void
+    + UnsafeHashSet_Capacity() : void
+    + UnsafeHashSet_Full_Throws() : void
+    + UnsafeHashSet_RemoveOnEmptyMap_DoesNotThrow() : void
+    + UnsafeHashSet_Collisions() : void
+    + UnsafeHashSet_SameElement() : void
+    + UnsafeHashSet_ForEach_FixedStringInHashMap() : void
+    + UnsafeHashSet_ForEach(n:int) : void
+    + UnsafeHashSet_EIU_ExceptWith_Empty() : void
+    + UnsafeHashSet_EIU_ExceptWith_AxB() : void
+    + UnsafeHashSet_EIU_ExceptWith_BxA() : void
+    + UnsafeHashSet_EIU_IntersectWith_Empty() : void
+    + UnsafeHashSet_EIU_IntersectWith() : void
+    + UnsafeHashSet_EIU_UnionWith_Empty() : void
+    + UnsafeHashSet_EIU_UnionWith() : void
+    + UnsafeHashSet_CustomAllocatorTest() : void
+    + <<unsafe>> UnsafeHashSet_BurstedCustomAllocatorTest() : void
+}
+struct BurstedCustomAllocatorJob {
+    + Execute() : void
+}
+CollectionsTestCommonBase <|-- UnsafeHashSetTests
+UnsafeHashSetTests +-- BurstedCustomAllocatorJob
+IJob <|-- BurstedCustomAllocatorJob
+@enduml

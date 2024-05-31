@@ -1,0 +1,9 @@
+@startuml
+class PaintableSceneViewGrid {
+    + OnSceneGUI(sceneView:SceneView) : void
+    + <<override>> isActive : bool <<get>>
+    + <<override>> Repaint() : void
+}
+PaintableGrid <|-- PaintableSceneViewGrid
+PaintableSceneViewGrid --> "tilemap" Tilemap
+@enduml

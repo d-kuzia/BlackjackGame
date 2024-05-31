@@ -1,0 +1,28 @@
+@startuml
+struct NativeBitArray {
+    + NativeBitArray(numBits:int, allocator:AllocatorManager.AllocatorHandle, options:NativeArrayOptions)
+    + IsCreated : bool <<get>>
+    + Dispose() : void
+    + Dispose(inputDeps:JobHandle) : JobHandle
+    + Length : int <<get>>
+    + Clear() : void
+    + AsNativeArray() : NativeArray<T>
+    + Set(pos:int, value:bool) : void
+    + SetBits(pos:int, value:bool, numBits:int) : void
+    + SetBits(pos:int, value:ulong, numBits:int) : void
+    + GetBits(pos:int, numBits:int) : ulong
+    + IsSet(pos:int) : bool
+    + Copy(dstPos:int, srcPos:int, numBits:int) : void
+    + Copy(dstPos:int, srcBitArray:NativeBitArray, srcPos:int, numBits:int) : void
+    + Find(pos:int, numBits:int) : int
+    + Find(pos:int, count:int, numBits:int) : int
+    + TestNone(pos:int, numBits:int) : bool
+    + TestAny(pos:int, numBits:int) : bool
+    + TestAll(pos:int, numBits:int) : bool
+    + CountBits(pos:int, numBits:int) : int
+}
+class NativeBitArrayUnsafeUtility <<static>> {
+    + {static} <<unsafe>> ConvertExistingDataToNativeBitArray(ptr:void*, sizeInBytes:int, allocator:AllocatorManager.AllocatorHandle) : NativeBitArray
+}
+INativeDisposable <|-- NativeBitArray
+@enduml

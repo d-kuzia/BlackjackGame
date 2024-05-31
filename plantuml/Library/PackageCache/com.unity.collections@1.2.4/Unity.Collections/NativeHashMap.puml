@@ -1,0 +1,63 @@
+@startuml
+struct "NativeKeyValueArrays`2"<TKey,TValue> {
+    + Length : int <<get>>
+    + NativeKeyValueArrays(length:int, allocator:AllocatorManager.AllocatorHandle, options:NativeArrayOptions)
+    + Dispose() : void
+    + Dispose(inputDeps:JobHandle) : JobHandle
+}
+struct "NativeHashMap`2"<TKey,TValue> {
+    + NativeHashMap(capacity:int, allocator:AllocatorManager.AllocatorHandle)
+    + IsEmpty : bool <<get>>
+    + Count() : int
+    + Capacity : int <<get>> <<set>>
+    + Clear() : void
+    + TryAdd(key:TKey, item:TValue) : bool
+    + Add(key:TKey, item:TValue) : void
+    + Remove(key:TKey) : bool
+    + TryGetValue(key:TKey, item:TValue) : bool
+    + ContainsKey(key:TKey) : bool
+    + IsCreated : bool <<get>>
+    + Dispose() : void
+    + Dispose(inputDeps:JobHandle) : JobHandle
+    + GetKeyArray(allocator:AllocatorManager.AllocatorHandle) : NativeArray<TKey>
+    + GetValueArray(allocator:AllocatorManager.AllocatorHandle) : NativeArray<TValue>
+    + GetKeyValueArrays(allocator:AllocatorManager.AllocatorHandle) : NativeKeyValueArrays<TKey, TValue>
+    + AsParallelWriter() : ParallelWriter
+    + GetEnumerator() : Enumerator
+}
+class "NativeHashMapDebuggerTypeProxy`2"<TKey,TValue> <<sealed>> {
+    + NativeHashMapDebuggerTypeProxy(target:NativeHashMap<TKey, TValue>)
+}
+class "NativeArray`1"<T> {
+}
+class "IEnumerable`1"<T> {
+}
+class "IEquatable`1"<T> {
+}
+struct ParallelWriter {
+    + m_ThreadIndex : int <<get>>
+    + Capacity : int <<get>>
+    + TryAdd(key:TKey, item:TValue) : bool
+}
+struct Enumerator {
+    + Dispose() : void
+    + MoveNext() : bool
+    + Reset() : void
+}
+class "List`1"<T> {
+}
+class "IEnumerator`1"<T> {
+}
+class "KeyValue`2"<T1,T2> {
+}
+INativeDisposable <|-- "NativeKeyValueArrays`2"
+"NativeKeyValueArrays`2" --> "Keys<TKey>" "NativeArray`1"
+"NativeKeyValueArrays`2" --> "Values<TValue>" "NativeArray`1"
+INativeDisposable <|-- "NativeHashMap`2"
+"IEnumerable`1" "<KeyValue<TKey, TValue>>" <|-- "NativeHashMap`2"
+"NativeHashMapDebuggerTypeProxy`2" --> "Items<Pair<TKey, TValue>>" "List`1"
+"NativeHashMap`2" +-- ParallelWriter
+"NativeHashMap`2" +-- Enumerator
+"IEnumerator`1" "<KeyValue<TKey, TValue>>" <|-- Enumerator
+Enumerator --> "Current<TKey,TValue>" "KeyValue`2"
+@enduml

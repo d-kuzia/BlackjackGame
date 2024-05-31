@@ -1,0 +1,23 @@
+@startuml
+class AsepriteFile {
+    + fileSize : uint <<get>>
+    + noOfFrames : ushort <<get>>
+    + width : ushort <<get>>
+    + height : ushort <<get>>
+    + colorDepth : ushort <<get>>
+    + animSpeed : ushort <<get>>
+    + alphaPaletteEntry : byte <<get>>
+    + noOfColors : ushort <<get>>
+    + pixelWidth : byte <<get>>
+    + pixelHeight : byte <<get>>
+    + gridPosX : short <<get>>
+    + gridPosY : short <<get>>
+    + gridWidth : ushort <<get>>
+    + gridHeight : ushort <<get>>
+    + Dispose() : void
+}
+class "ReadOnlyCollection`1"<T> {
+}
+IDisposable <|-- AsepriteFile
+AsepriteFile --> "frameData<FrameData>" "ReadOnlyCollection`1"
+@enduml

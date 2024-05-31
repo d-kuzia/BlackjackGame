@@ -1,0 +1,56 @@
+@startuml
+class Layer {
+    + opacity : float
+    + index : int <<get>> <<set>>
+    + guid : int <<get>> <<set>>
+    + name : string <<get>> <<set>>
+    + parentIndex : int <<get>> <<set>>
+    + {static} GenerateGuid(layer:Layer) : int
+}
+struct Cell {
+    + updatedCellRect : bool
+    + opacity : float
+    + name : string <<get>> <<set>>
+    + frameIndex : int <<get>> <<set>>
+}
+class LinkedCell {
+    + frameIndex : int <<get>> <<set>>
+    + linkedToFrame : int <<get>> <<set>>
+}
+class Frame {
+    + duration : int <<get>> <<set>>
+}
+class Tag {
+    + name : string <<get>> <<set>>
+    + fromFrame : int <<get>> <<set>>
+    + toFrame : int <<get>> <<set>>
+    + noOfRepeats : int <<get>> <<set>>
+    + noOfFrames : int <<get>>
+    + isRepeating : bool <<get>>
+}
+enum FileImportModes {
+    SpriteSheet= 0,
+    AnimatedSprite= 1,
+}
+enum LayerImportModes {
+    IndividualLayers,
+    MergeFrame,
+}
+enum PivotSpaces {
+    Canvas,
+    Local,
+}
+class "List`1"<T> {
+}
+class "NativeArray`1"<T> {
+}
+Layer --> "layerFlags" LayerFlags
+Layer --> "layerType" LayerTypes
+Layer --> "blendMode" BlendModes
+Layer --> "cells<Cell>" "List`1"
+Layer --> "linkedCells<LinkedCell>" "List`1"
+Cell --> "blendMode" BlendModes
+Cell --> "image<Color32>" "NativeArray`1"
+Cell --> "cellRect" RectInt
+Cell --> "spriteId" GUID
+@enduml

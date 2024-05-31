@@ -1,0 +1,18 @@
+@startuml
+class TilePaletteClipboardElement {
+    + clipboardUnlocked : bool <<get>> <<set>>
+    +  <<event>> clipboardUnlockedChanged : Action<bool> 
+    + TilePaletteClipboardElement()
+}
+class TilePaletteClipboardElementFactory {
+}
+class TilePaletteClipboardElementUxmlTraits {
+}
+class "UxmlFactory`2"<T1,T2> {
+}
+IMGUIContainer <|-- TilePaletteClipboardElement
+TilePaletteClipboardElement +-- TilePaletteClipboardElementFactory
+"UxmlFactory`2" "<TilePaletteClipboardElement,TilePaletteClipboardElementUxmlTraits>" <|-- TilePaletteClipboardElementFactory
+TilePaletteClipboardElement +-- TilePaletteClipboardElementUxmlTraits
+UxmlTraits <|-- TilePaletteClipboardElementUxmlTraits
+@enduml

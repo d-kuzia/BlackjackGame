@@ -1,0 +1,9 @@
+@startuml
+class MenuItems <<static>> {
+}
+class DoCreateSpriteAtlas {
+    + sides : int
+    + <<override>> Action(instanceId:int, pathName:string, resourceFile:string) : void
+}
+MenuItems +-- DoCreateSpriteAtlas
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+class TilePaletteSaveUtility {
+    + {static} SaveTilePalette(originalPalette:GameObject, paletteInstance:GameObject) : bool
+}
+class TilePaletteSaveScope {
+    + TilePaletteSaveScope(paletteInstance:GameObject)
+    + Dispose() : void
+}
+TilePaletteSaveUtility +-- TilePaletteSaveScope
+IDisposable <|-- TilePaletteSaveScope
+@enduml

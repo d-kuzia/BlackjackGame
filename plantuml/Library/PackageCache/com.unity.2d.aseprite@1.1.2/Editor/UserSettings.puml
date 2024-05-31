@@ -1,0 +1,10 @@
+@startuml
+class ImportSettings {
+    + {static} backgroundImport : bool <<get>>
+    + OnGUI() : void
+}
+class UserSettings {
+    + <<const>> settingsUniqueKey : string = "UnityEditor.U2D.Aseprite/"
+}
+SettingsProvider <|-- UserSettings
+@enduml

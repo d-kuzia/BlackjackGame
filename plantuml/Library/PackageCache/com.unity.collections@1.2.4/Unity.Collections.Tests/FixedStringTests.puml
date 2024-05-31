@@ -1,0 +1,29 @@
+@startuml
+class FixedStringTestUtils <<static>> {
+}
+class FixedStringTests {
+    + FixedStringFormat() : void
+    + FixedStringNFormatExtension1Params() : void
+    + FixedStringNFormatExtension2Params() : void
+    + FixedStringNFormatExtension3Params() : void
+    + FixedStringNFormatExtension4Params() : void
+    + FixedStringNFormatExtension5Params() : void
+    + FixedStringNFormatExtension6Params() : void
+    + FixedStringNFormatExtension7Params() : void
+    + FixedStringNFormatExtension8Params() : void
+    + FixedStringNFormatExtension9Params() : void
+    + FixedStringNFormatExtension10Params() : void
+    + FixedStringNAppendString() : void
+    + FixedStringRuneWorks() : void
+    + FixedStringNCopyFromBytesWorks(a:String) : void
+    + FixedStringNToStringWorks(a:String) : void
+    + FixedStringNEqualsWorks(a:String, b:String) : void
+    + FixedStringNForEach() : void
+    + FixedStringNIndexOf() : void
+    + FixedStringNLastIndexOf() : void
+    + FixedStringNContains() : void
+    + FixedStringNComparisons() : void
+    + FixedStringNSizeOf() : void
+    <<unsafe>> + FixedStringNLayout(a:String, expected:byte[]) : void
+}
+@enduml

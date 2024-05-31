@@ -1,0 +1,32 @@
+@startuml
+class NativeSortTests {
+    + NativeArraySlice_BinarySearch() : void
+    + NativeArraySlice_BinarySearch_NotFound() : void
+    + NativeArraySlice_BinarySearch_NotFound_Reference_ArrayList() : void
+    + NativeList_BinarySearch() : void
+    + NativeList_BinarySearch_NotFound() : void
+    + NativeList_BinarySearch_NotFound_Reference_ArrayList() : void
+    + NativeList_GenericSortJob() : void
+    + NativeList_GenericSortJobCustomComparer() : void
+    + UnsafeList_BinarySearch() : void
+    + UnsafeList_BinarySearch_NotFound() : void
+    + UnsafeList_BinarySearch_NotFound_Reference_ArrayList() : void
+    + UnsafeList_GenericSortJob() : void
+    + UnsafeList_GenericSortJobCustomComparer() : void
+    + FixedList32_GenericSort() : void
+    + FixedList64_GenericSort() : void
+    + FixedList128_GenericSort() : void
+    + FixedList512_GenericSort() : void
+    + FixedList4096_GenericSort() : void
+}
+struct "DescendingComparer`1"<T> {
+    + Compare(x:T, y:T) : int
+}
+class "IComparer`1"<T> {
+}
+class "IComparable`1"<T> {
+}
+CollectionsTestCommonBase <|-- NativeSortTests
+NativeSortTests +-- "DescendingComparer`1"
+"IComparer`1" "<T>" <|-- "DescendingComparer`1"
+@enduml

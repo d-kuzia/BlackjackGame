@@ -1,0 +1,5 @@
+@startuml
+class PlasticQuestionAlert {
+}
+PlasticDialog <|-- PlasticQuestionAlert
+@enduml

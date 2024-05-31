@@ -1,0 +1,11 @@
+@startuml
+class SpriteLibraryInspector {
+    + OnEnable() : void
+    + <<override>> OnInspectorGUI() : void
+}
+class Style <<static>> {
+    + {static} libraryDifferentValue : string
+}
+Editor <|-- SpriteLibraryInspector
+SpriteLibraryInspector +-- Style
+@enduml

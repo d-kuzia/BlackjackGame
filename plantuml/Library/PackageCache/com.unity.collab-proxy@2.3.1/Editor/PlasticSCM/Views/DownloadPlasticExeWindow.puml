@@ -1,0 +1,5 @@
+@startuml
+class DownloadPlasticExeWindow {
+}
+EditorWindow <|-- DownloadPlasticExeWindow
+@enduml

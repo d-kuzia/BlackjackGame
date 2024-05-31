@@ -1,0 +1,22 @@
+@startuml
+class PivotInspectorPanel {
+}
+class PivotTool {
+    + <<override>> Initialize(layout:LayoutOverlay) : void
+}
+class CustomUxmlFactory {
+}
+class Styles <<static>> {
+}
+class "UxmlFactory`2"<T1,T2> {
+}
+VisualElement <|-- PivotInspectorPanel
+PivotInspectorPanel --> "pivotAlignment" EnumField
+PivotInspectorPanel --> "pivotPosition" Vector2Field
+SkeletonToolWrapper <|-- PivotTool
+PivotInspectorPanel +-- CustomUxmlFactory
+"UxmlFactory`2" "<PivotInspectorPanel,UxmlTraits>" <|-- CustomUxmlFactory
+PivotTool +-- Styles
+Styles o-> "pivotdotactive" GUIStyle
+Styles o-> "pivotdot" GUIStyle
+@enduml

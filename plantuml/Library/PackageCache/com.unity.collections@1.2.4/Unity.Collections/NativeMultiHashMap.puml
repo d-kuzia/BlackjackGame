@@ -1,0 +1,72 @@
+@startuml
+struct "NativeMultiHashMapIterator`1"<TKey> {
+    + GetEntryIndex() : int
+}
+struct "NativeMultiHashMap`2"<TKey,TValue> {
+    + NativeMultiHashMap(capacity:int, allocator:AllocatorManager.AllocatorHandle)
+    + IsEmpty : bool <<get>>
+    + Count() : int
+    + Capacity : int <<get>> <<set>>
+    + Clear() : void
+    + Add(key:TKey, item:TValue) : void
+    + Remove(key:TKey) : int
+    + Remove(it:NativeMultiHashMapIterator<TKey>) : void
+    + TryGetFirstValue(key:TKey, item:TValue, it:NativeMultiHashMapIterator<TKey>) : bool
+    + TryGetNextValue(item:TValue, it:NativeMultiHashMapIterator<TKey>) : bool
+    + ContainsKey(key:TKey) : bool
+    + CountValuesForKey(key:TKey) : int
+    + SetValue(item:TValue, it:NativeMultiHashMapIterator<TKey>) : bool
+    + IsCreated : bool <<get>>
+    + Dispose() : void
+    + Dispose(inputDeps:JobHandle) : JobHandle
+    + GetKeyArray(allocator:AllocatorManager.AllocatorHandle) : NativeArray<TKey>
+    + GetValueArray(allocator:AllocatorManager.AllocatorHandle) : NativeArray<TValue>
+    + GetKeyValueArrays(allocator:AllocatorManager.AllocatorHandle) : NativeKeyValueArrays<TKey, TValue>
+    + AsParallelWriter() : ParallelWriter
+    + GetValuesForKey(key:TKey) : Enumerator
+    + GetEnumerator() : KeyValueEnumerator
+}
+class "NativeMultiHashMapDebuggerTypeProxy`2"<TKey,TValue> <<sealed>> {
+    + NativeMultiHashMapDebuggerTypeProxy(target:NativeMultiHashMap<TKey, TValue>)
+}
+class NativeMultiHashMapExtensions <<unsafe>> <<static>> {
+}
+class "IEnumerable`1"<T> {
+}
+class "IEquatable`1"<T> {
+}
+struct ParallelWriter {
+    + m_ThreadIndex : int <<get>>
+    + Capacity : int <<get>>
+    + Add(key:TKey, item:TValue) : void
+}
+struct Enumerator {
+    + Dispose() : void
+    + MoveNext() : bool
+    + Reset() : void
+    + GetEnumerator() : Enumerator
+}
+struct KeyValueEnumerator {
+    + Dispose() : void
+    + <<unsafe>> MoveNext() : bool
+    + Reset() : void
+}
+class "IComparable`1"<T> {
+}
+class "List`1"<T> {
+}
+class "IEnumerator`1"<T> {
+}
+class "KeyValue`2"<T1,T2> {
+}
+INativeDisposable <|-- "NativeMultiHashMap`2"
+"IEnumerable`1" "<KeyValue<TKey, TValue>>" <|-- "NativeMultiHashMap`2"
+"NativeMultiHashMapDebuggerTypeProxy`2" --> "Items<ListPair<TKey, List<TValue>>>" "List`1"
+"NativeMultiHashMap`2" +-- ParallelWriter
+"NativeMultiHashMap`2" +-- Enumerator
+"IEnumerator`1" "<TValue>" <|-- Enumerator
+Enumerator --> "Current" TValue
+"NativeMultiHashMap`2" +-- KeyValueEnumerator
+"IEnumerator`1" "<KeyValue<TKey, TValue>>" <|-- KeyValueEnumerator
+KeyValueEnumerator --> "Current<TKey,TValue>" "KeyValue`2"
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+class PlayerScript {
+    + handValue : int = 0
+    + cardIndex : int = 0
+    + StartHand() : void
+    + GetCard() : int
+    + AceCheck() : void
+    + AdjustMoney(amount:int) : void
+    + GetMoney() : int
+    + ResetHand() : void
+}
+MonoBehaviour <|-- PlayerScript
+PlayerScript --> "cardScript" CardScript
+PlayerScript --> "deckScript" DeckScript
+@enduml

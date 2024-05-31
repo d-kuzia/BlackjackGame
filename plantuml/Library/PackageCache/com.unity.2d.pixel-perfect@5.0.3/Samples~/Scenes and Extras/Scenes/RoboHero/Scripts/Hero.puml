@@ -1,0 +1,17 @@
+@startuml
+class Hero {
+    + m_MoveSpeed : float
+    + dead : bool = false
+    + LevelComplete() : void
+}
+enum PlayerState {
+    Alive,
+    Dead,
+}
+MonoBehaviour <|-- Hero
+Hero --> "animator" Animator
+Hero o-> "playerState" PlayerState
+Hero --> "lookFacing" Vector2
+Hero --> "respawnPoint" Vector2
+Hero +-- PlayerState
+@enduml

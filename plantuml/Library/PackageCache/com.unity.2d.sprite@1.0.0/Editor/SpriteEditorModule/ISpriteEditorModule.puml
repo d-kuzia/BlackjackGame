@@ -1,0 +1,19 @@
+@startuml
+abstract class SpriteEditorModuleBase {
+    + {abstract} moduleName : string <<get>>
+    + {abstract} CanBeActivated() : bool
+    + {abstract} DoMainGUI() : void
+    + {abstract} DoToolbarGUI(drawArea:Rect) : void
+    + {abstract} OnModuleActivate() : void
+    + {abstract} OnModuleDeactivate() : void
+    + {abstract} DoPostGUI() : void
+    + {abstract} ApplyRevert(apply:bool) : bool
+}
+interface ISpriteEditor {
+}
+class RequireSpriteDataProviderAttribute {
+    + RequireSpriteDataProviderAttribute(types:Type[])
+}
+SpriteEditorModuleBase --> "spriteEditor" ISpriteEditor
+Attribute <|-- RequireSpriteDataProviderAttribute
+@enduml

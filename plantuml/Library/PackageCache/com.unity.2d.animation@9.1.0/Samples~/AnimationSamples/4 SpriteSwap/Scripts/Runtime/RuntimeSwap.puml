@@ -1,0 +1,16 @@
+@startuml
+class RuntimeSwap {
+    + OverrideEntry(i:int) : void
+    + ResetEntry(i:int) : void
+}
+class SwapEntry {
+    + category : string = ""
+    + entry : string = ""
+}
+class SwapGroup {
+}
+MonoBehaviour <|-- RuntimeSwap
+RuntimeSwap +-- SwapEntry
+SwapEntry o-> "sprite" Sprite
+RuntimeSwap +-- SwapGroup
+@enduml

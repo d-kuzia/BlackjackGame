@@ -1,0 +1,5 @@
+@startuml
+class ImportLayers <<static>> {
+    + {static} Import(layers:List<Layer>, cellBuffers:List<NativeArray<Color32>>, cellWidth:List<int>, cellHeight:List<int>) : void
+}
+@enduml

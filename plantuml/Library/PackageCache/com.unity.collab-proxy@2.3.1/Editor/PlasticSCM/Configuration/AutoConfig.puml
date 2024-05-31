@@ -1,0 +1,10 @@
+@startuml
+class AutoConfig <<static>> {
+}
+class ConfigureClientConf <<static>> {
+}
+class ConfigureProfile <<static>> {
+}
+AutoConfig +-- ConfigureClientConf
+AutoConfig +-- ConfigureProfile
+@enduml

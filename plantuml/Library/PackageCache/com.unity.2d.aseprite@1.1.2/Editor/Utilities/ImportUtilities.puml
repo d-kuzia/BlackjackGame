@@ -1,0 +1,17 @@
+@startuml
+class UniqueNameGenerator {
+    + GetUniqueName(name:string, parentIndex:int, logNewNameGenerated:bool, context:UnityEngine.Object) : string
+}
+class ImportUtilities <<static>> {
+    + {static} SaveAllPalettesToDisk(file:AsepriteFile) : void
+    + {static} SaveToPng(buffer:NativeArray<Color32>, width:int, height:int) : string
+    + {static} ExportAnimationAssets(importers:AsepriteImporter[], exportClips:bool, exportController:bool) : void
+    + {static} ExportAnimationAssets(savePath:string, importers:AsepriteImporter[], exportClips:bool, exportController:bool) : void
+    + {static} CalculateCellPivot(cellRect:RectInt, spritePadding:uint, canvasSize:Vector2Int, alignment:SpriteAlignment, customPivot:Vector2) : Vector2
+    + {static} PivotAlignmentToVector(alignment:SpriteAlignment) : Vector2
+    + {static} GetCellName(baseName:string, frameIndex:int, noOfFrames:int) : string
+    + {static} DisposeIfCreated(arr:NativeArray<T>) : void
+    + {static} IsLayerVisible(layerIndex:int, layers:List<Layer>) : bool
+    + {static} IsEqual(rectA:RectInt, rectB:RectInt) : bool
+}
+@enduml

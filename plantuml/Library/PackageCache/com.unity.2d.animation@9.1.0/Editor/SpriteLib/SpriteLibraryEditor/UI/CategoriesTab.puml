@@ -1,0 +1,12 @@
+@startuml
+class CategoriesTab {
+    + BindElements(controllerEvents:ControllerEvents, viewEvents:ViewEvents) : void
+}
+class CustomUxmlFactory {
+}
+class "UxmlFactory`2"<T1,T2> {
+}
+VisualElement <|-- CategoriesTab
+CategoriesTab +-- CustomUxmlFactory
+"UxmlFactory`2" "<CategoriesTab,UxmlTraits>" <|-- CustomUxmlFactory
+@enduml

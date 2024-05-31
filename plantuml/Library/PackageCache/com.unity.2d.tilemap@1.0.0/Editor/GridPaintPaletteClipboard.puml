@@ -1,0 +1,59 @@
+@startuml
+class GridPaintPaletteClipboard {
+    +  <<event>> onBrushPicked : Action 
+    + activeDragAndDrop : bool <<get>>
+    + m_CameraPositionSaved : bool
+    + m_CameraOrthographicSize : float
+    + unlocked : bool <<get>> <<set>>
+    +  <<event>> unlockedChanged : Action<bool> 
+    + isReceivingDragAndDrop : bool <<get>>
+    + showNewEmptyClipboardInfo : bool <<get>>
+    + isModified : bool <<get>>
+    + OnBeforePaletteSelectionChanged() : void
+    + OnAfterPaletteSelectionChanged() : void
+    + SetupPreviewCameraOnInit() : void
+    + InitPreviewUtility() : void
+    + ResetPreviewInstance() : void
+    + DestroyPreviewInstance() : void
+    + FrameEntirePalette() : void
+    + OnClipboardGUI(clipboardPosition:Rect) : void
+    + <<override>> OnGUI() : void
+    + <<override>> Repaint() : void
+    + <<override>> isActive : bool <<get>>
+    + CheckRevertIfChanged(paths:string[]) : void
+    + SavePaletteIfNecessary() : bool
+    + GridToScreen(gridPosition:Vector2) : Vector2
+    + ScreenToLocal(screenPosition:Vector2) : Vector2
+    + UnlockAndEdit() : void
+}
+class Styles <<static>> {
+}
+class "List`1"<T> {
+}
+class PreviewInstanceScope {
+    + PreviewInstanceScope(guiRect:Rect, previewRenderUtility:PreviewRenderUtility, paletteInstance:GameObject, drawGizmos:bool)
+    + Dispose() : void
+}
+class AssetProcessor {
+    + <<override>> GetPostprocessOrder() : int
+}
+class PaletteAssetModificationProcessor {
+}
+PaintableGrid <|-- GridPaintPaletteClipboard
+GridPaintPaletteClipboard --> "instances<GridPaintPaletteClipboard>" "List`1"
+GridPaintPaletteClipboard --> "guiRect" Rect
+GridPaintPaletteClipboard --> "m_CameraPosition" Vector3
+GridPaintPaletteClipboard --> "activeTile" TileBase
+GridPaintPaletteClipboard --> "attachedVisualElement" VisualElement
+GridPaintPaletteClipboard +-- Styles
+Styles o-> "emptyProjectInfo" GUIContent
+Styles o-> "emptyPaletteInfo" GUIContent
+Styles o-> "invalidPaletteInfo" GUIContent
+Styles o-> "invalidGridInfo" GUIContent
+GridPaintPaletteClipboard +-- PreviewInstanceScope
+IDisposable <|-- PreviewInstanceScope
+GridPaintPaletteClipboard +-- AssetProcessor
+AssetPostprocessor <|-- AssetProcessor
+GridPaintPaletteClipboard +-- PaletteAssetModificationProcessor
+AssetModificationProcessor <|-- PaletteAssetModificationProcessor
+@enduml
